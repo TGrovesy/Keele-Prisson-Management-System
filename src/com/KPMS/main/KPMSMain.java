@@ -16,9 +16,7 @@ public class KPMSMain {
 		meds.add("speed");
 		meds.add("ket");
 		meds.add("blue");
-		//new Prisoner(1, "Arron Wells", 6, 29, 8, 2019,  meds, "Unemployed", "Max" );
 
-		new Prisoner(1);
 
 	}
 

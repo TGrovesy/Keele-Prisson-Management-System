@@ -32,7 +32,7 @@ public class Prisoner {
 
 	public Prisoner(int prisonerFilePath) {
 		
-		LoadPrisonerFile(1);
+		LoadPrisonerFile(prisonerFilePath);
 	}
 
 	public Prisoner(int prisonerID, String prisonerName, int sentenceLength, int releaseDay, int releaseMonth, int releaseYear, ArrayList<String> medication, String job, String securityLevel) {
@@ -48,7 +48,7 @@ public class Prisoner {
 		CreateJSONPrisonerFile();
 	}
 
-	//Depeding on which constructor is used it either creates an entirely new prissoner JSON
+	//Depeding on which constructor is used it either creates an entirely new prisoner JSON
 	@SuppressWarnings("unchecked")
 	private void CreateJSONPrisonerFile() {
 		JSONObject obj = new JSONObject();
@@ -132,6 +132,30 @@ public class Prisoner {
         }
 	}
 
+	public String GetName() {
+		return this.prisonerName;
+	}
+	
+	public int GetSentenceLength() {
+		return this.sentenceLength;
+	}
+	
+	public String GetReleaseDate() {
+		return this.releaseDay + "/" + this.releaseMonth + "/" + this.releaseYear;
+	}
+	
+	public String GetSecurityLevel() {
+		return this.securityLevel;
+	}
+	
+	public String GetJob() {
+		return this.job;
+	}
+	
+	public ArrayList<String> GetMedication() {
+		return this.medication;
+	}
+	
 	public void DeletePrisoner() {
 
 	}
