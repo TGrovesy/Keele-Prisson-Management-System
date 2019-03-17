@@ -6,6 +6,7 @@
 package com.KPMS.UI;
 
 
+import static com.KPMS.entites.History.sendPrisonerHistory;
 import com.KPMS.entites.Prisoner;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -41,7 +42,7 @@ import javax.swing.border.TitledBorder;
 
 public class Window extends JFrame {
 
-        //Heyco sucks at figuring out github ;)
+    
         
 	public Window() {
 		setSize(1440, 900); // 16:10 Aspect Ratio
@@ -289,17 +290,7 @@ public class Window extends JFrame {
                 prionserHistoryString = date + " -- " + combobSelection + ": " + historyInput.getText() + System.lineSeparator();//input string
 
                 //create file if file not created
-                File prisonerfile = new File(fileName);
-                try {
-                    prisonerfile.createNewFile();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                appendToFile(fileName, prionserHistoryString); //add string into file
-
-
-                System.out.println(prionserHistoryString);
-
+                sendPrisonerHistory(prionserHistoryString,fileName);
 
                 historyInput.setText(null);
 
@@ -360,22 +351,6 @@ public class Window extends JFrame {
 
         }
     }
-
-    public static void appendToFile(String fileName, String history){
-        try {
-
-            // Open given file in append mode.
-            BufferedWriter out = new BufferedWriter(
-                    new FileWriter(fileName, true));
-            out.write(history);
-            out.close();
-        }
-        catch (IOException e) {
-            System.out.println("exception occoured" + e);
-        }
-
-    }
-
 	private void UpdateFrame() {
 
 		invalidate();
