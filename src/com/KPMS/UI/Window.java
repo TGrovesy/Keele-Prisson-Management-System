@@ -6,6 +6,7 @@
 package com.KPMS.UI;
 
 
+import com.KPMS.entites.Prisoner;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -20,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import entites.Prisoner;
 import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -41,6 +41,8 @@ import javax.swing.border.TitledBorder;
 
 public class Window extends JFrame {
 
+        //Heyco sucks at figuring out github ;)
+        
 	public Window() {
 		setSize(1440, 900); // 16:10 Aspect Ratio
 		setTitle("Keele Prison Management System!");
@@ -63,7 +65,7 @@ public class Window extends JFrame {
                 addInfoButtons();
 		this.add(mainPageControlPanel);
 	}
-
+        
       
         private static JPanel selection, inputPanel, display, prisonerAddInfoPanel;
         private static JTextArea historyInput,historyDisplay;
