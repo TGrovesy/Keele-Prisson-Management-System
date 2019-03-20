@@ -1,11 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.KPMS.UI;
 
 import java.awt.BorderLayout;
+
+import static com.KPMS.entites.History.sendPrisonerHistory;
+import com.KPMS.entites.Prisoner;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -34,10 +33,11 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import com.KPMS.entites.Prisoner;
 
 public class Window extends JFrame {
 
+
+        
 	public Window() {
 		setSize(1440, 900); // 16:10 Aspect Ratio
 		setTitle("Keele Prison Management System!");
@@ -65,7 +65,6 @@ public class Window extends JFrame {
 	private static JLabel dateTag, dateLabel, prisonerLabel, inputLabel;
 	private static JButton historySubmit;
 	private static Date date;
-	private static JComboBox prisonerCombo;
 	private JPanel prisonerInfoPanel;
 	private JPanel prisonerPanelTop, prisonerPanelBottom;
 	private JTextField prisonerInputID;
@@ -73,6 +72,9 @@ public class Window extends JFrame {
 	private JButton prisonerGetBtn;
 	private Prisoner prisoner;
 	private JTextArea prisonerInfoTextArea;
+	
+	//Gui Stuff for adding prisoner
+	private JButton addPrisonerBtn;
 
 	private void SetupGetPrisonerInfoPanel() {
 		prisonerInfoPanel = new JPanel();
@@ -90,6 +92,7 @@ public class Window extends JFrame {
 		prisonerInputID = new JTextField();
 		prisonerIDLbl = new JLabel("Prisoner ID: ");
 		prisonerGetBtn = new JButton("Get");
+		addPrisonerBtn = new JButton("Add");
 
 		prisonerInputID.setSize(100, 80);
 		prisonerIDLbl.setForeground(Color.WHITE);
@@ -121,6 +124,13 @@ public class Window extends JFrame {
 
 		prisonerPanelBottom.add(prisonerInfoTextArea);
 
+		prisonerPanelBottom.add(addPrisonerBtn);
+		addPrisonerBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new AddPrisonerPopupWindow();
+			}
+		});
 		prisonerInfoPanel.add(prisonerPanelTop);
 
 		prisonerInfoPanel.add(prisonerPanelBottom);
@@ -128,6 +138,9 @@ public class Window extends JFrame {
 		this.add(prisonerInfoPanel);
 
 	}
+	
+
+	private static JComboBox prisonerCombo;
 
 	private void PrisonerInfo() {
 
@@ -221,7 +234,7 @@ public class Window extends JFrame {
 	private JButton assginCellBtn;
 
 	private void SetupButtons() {
-		prisonerInfoPageBtn = new JButton("Prisoner Info");
+		prisonerInfoPageBtn = new JButton("Get Or Add Prisoner");
 		prisonerInfoPageBtn.setBackground(Color.DARK_GRAY);
 		prisonerInfoPageBtn.setForeground(Color.WHITE);
 		prisonerInfoPageBtn.addActionListener(new ActionListener() {
@@ -298,6 +311,10 @@ public class Window extends JFrame {
 			combobSelection = prisonerCombo.getSelectedItem().toString();
 
 			if ((!historyInput.getText().equals(""))) {// check if required columns filled or not
+				 prionserHistoryString = date + " -- " + combobSelection + ": " + historyInput.getText() + System.lineSeparator();//input string
+
+                //create file if file not created
+                sendPrisonerHistory(prionserHistoryString,fileName);
 
 				prionserHistoryString = date + " -- " + combobSelection + ": " + historyInput.getText()
 						+ System.lineSeparator();// input string
