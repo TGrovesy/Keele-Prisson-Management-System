@@ -161,6 +161,6 @@ public class Prisoner {
 	}
 
 	public void GetBehaviorRecords() {
-
+		//TODO heyco add your code here to retrieve the prisoners info!
 	}
 }
