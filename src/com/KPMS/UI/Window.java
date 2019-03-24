@@ -448,6 +448,7 @@ public class Window extends JFrame {
                     scheduleString ="Prisoner Number: "+prisonerScheduleSelector.getText()+", Visit Time Schedule at: "+ hourval+":"+minuteval;
                     
                     writeSchedule("placeholder",scheduleFileName);
+                    writeSchedule(scheduleString,scheduleFileName);
                     
                 }
             });
