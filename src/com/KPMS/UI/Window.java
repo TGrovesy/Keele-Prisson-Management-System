@@ -4,7 +4,9 @@ package com.KPMS.UI;
 import java.awt.BorderLayout;
 
 import static com.KPMS.entites.History.sendPrisonerHistory;
+import static com.KPMS.entites.scheduleFile.writeSchedule;
 import com.KPMS.entites.Prisoner;
+import com.KPMS.entites.VisitCounter;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -60,21 +62,23 @@ public class Window extends JFrame {
 		this.add(mainPageControlPanel);
 	}
 
-	private static JPanel selection, inputPanel, display, prisonerAddInfoPanel;
+	private static JPanel selection, inputPanel, display, prisonerAddInfoPanel, schedulePage;
 	private static JTextArea historyInput, historyDisplay;
 	private static JLabel dateTag, dateLabel, prisonerLabel, inputLabel;
 	private static JButton historySubmit;
 	private static Date date;
 	private JPanel prisonerInfoPanel;
 	private JPanel prisonerPanelTop, prisonerPanelBottom;
-	private JTextField prisonerInputID;
+	private JTextField prisonerInputID,prisonerScheduleSelector;
 	private JLabel prisonerIDLbl;
-	private JButton prisonerGetBtn;
+	private JButton prisonerGetBtn,getVisitTime;
 	private Prisoner prisoner;
 	private JTextArea prisonerInfoTextArea;
-	
+        private VisitCounter vcounter;
+	boolean reset = false;
+        
 	//Gui Stuff for adding prisoner
-	private JButton addPrisonerBtn;
+	private JButton addPrisonerBtn, scheduleButton;
 
 	private void SetupGetPrisonerInfoPanel() {
 		prisonerInfoPanel = new JPanel();
@@ -195,6 +199,27 @@ public class Window extends JFrame {
 		inputPanel.add(historySubmit, BorderLayout.PAGE_END);
 
 		prisonerAddInfoPanel.add(inputPanel, BorderLayout.CENTER);
+                
+                //button to scheduel 
+                scheduleButton = new JButton("C");
+                scheduleButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// remove main panel
+				remove(prisonerAddInfoPanel);
+				scheduleSetUp();
+				UpdateFrame();
+			}
+                });
+               
+                
+                
+                
+                
+                
+                
+                prisonerAddInfoPanel.add(scheduleButton);
 
 		// Display panel
 
@@ -312,22 +337,9 @@ public class Window extends JFrame {
 
 			if ((!historyInput.getText().equals(""))) {// check if required columns filled or not
 				 prionserHistoryString = date + " -- " + combobSelection + ": " + historyInput.getText() + System.lineSeparator();//input string
-
-                //create file if file not created
-                sendPrisonerHistory(prionserHistoryString,fileName);
-
-				prionserHistoryString = date + " -- " + combobSelection + ": " + historyInput.getText()
-						+ System.lineSeparator();// input string
-
-				// create file if file not created
-				File prisonerfile = new File(fileName);
-				try {
-					prisonerfile.createNewFile();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				appendToFile(fileName, prionserHistoryString); // add string into file
-
+                                    //create file if file not created
+                                 sendPrisonerHistory(prionserHistoryString,fileName);
+				
 				System.out.println(prionserHistoryString);
 
 				historyInput.setText(null);
@@ -386,18 +398,70 @@ public class Window extends JFrame {
 		}
 	}
 
-	public static void appendToFile(String fileName, String history) {
-		try {
-
-			// Open given file in append mode.
-			BufferedWriter out = new BufferedWriter(new FileWriter(fileName, true));
-			out.write(history);
-			out.close();
-		} catch (IOException e) {
-			System.out.println("exception occoured" + e);
-		}
-
-	}
+        int minutecounter = 0;
+        int hourcounter = 1;
+        String scheduleString, hourval,minuteval;
+        String scheduleFileName;
+        public void scheduleSetUp(){
+            schedulePage = new JPanel();
+            //Create file for schedule visit
+            DateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
+            date = new Date();
+            String scheduleFileName = currentDate.format(date).toString()+".txt";
+            
+            
+            //Assume visit time is from 9:00am to 11:00am and 3:00am to 5:00am, each slot is 20 minutes long.
+            getVisitTime=new JButton("get visit time");
+            prisonerScheduleSelector = new JTextField();
+            prisonerScheduleSelector.setPreferredSize(new Dimension(200,20));
+            schedulePage.add(prisonerScheduleSelector);
+            
+            getVisitTime.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    
+                    
+                    if(minutecounter<3){
+                        minutecounter+=1;                   
+                    }
+                    else if(minutecounter==3){
+                        minutecounter=1;
+                        reset = true;
+                        
+                    }
+                    if(reset==true){   
+                
+                        hourcounter+=1;
+                        reset = false;
+                    }
+                    else if(hourcounter==4){
+                        minutecounter=5;
+                        hourcounter=5;
+                    }
+                    
+                    
+                    vcounter = new VisitCounter();
+                    hourval = vcounter.hourCounter(hourcounter);
+                    minuteval = vcounter.minuteCounter(minutecounter);
+                    System.out.println(hourval+minuteval);     
+                    
+                    scheduleString ="Prisoner Number: "+prisonerScheduleSelector.getText()+", Visit Time Schedule at: "+ hourval+":"+minuteval;
+                    
+                    writeSchedule("placeholder",scheduleFileName);
+                    
+                }
+            });
+            
+           
+         
+            schedulePage.add(getVisitTime);
+            this.add(schedulePage);
+            
+            
+            
+            
+            
+        }
 
 	private void UpdateFrame() {
 
