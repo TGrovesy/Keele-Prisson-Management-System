@@ -122,7 +122,7 @@ public class Prisoner {
             while (iterator.hasNext()) {
             	this.medication.add(iterator.next());
             }
-
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
