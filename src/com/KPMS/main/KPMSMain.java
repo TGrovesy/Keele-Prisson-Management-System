@@ -1,9 +1,9 @@
 package com.KPMS.main;
 
-import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.KPMS.UI.Window;
-import com.KPMS.entites.Prisoner;
+import com.KPMS.entites.Cell;
 
 public class KPMSMain {
 	
@@ -11,11 +11,7 @@ public class KPMSMain {
 
 	public static void main(String[] args) {
 		Window window = new Window();
-		ArrayList<String> meds = new ArrayList();
-		meds.add("Weed");
-		meds.add("speed");
-		meds.add("ket");
-		meds.add("blue");
+		new Cell(1, "B", "Medium", 1, 1);;
 
 
 	}
