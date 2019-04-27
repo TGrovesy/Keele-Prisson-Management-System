@@ -834,8 +834,8 @@ public class Window extends JFrame {
         prisonerScheduleSelector = new JTextField();
         prisonerScheduleSelector.setPreferredSize(new Dimension(200, 20));
         schedulePage.add(prisonerScheduleSelector);
-        Integer[] hourSelection = {1, 2, 3, 4, 5};
-        Integer[] minuteSelection = {00, 20, 40};
+        Integer[] hourSelection = {null, 1, 2, 3, 4, 5};
+        Integer[] minuteSelection = {null, 00, 20, 40};
         hourCombo = new JComboBox(hourSelection);
         minuteCombo = new JComboBox(minuteSelection);
         timeSep = new JLabel(":");
