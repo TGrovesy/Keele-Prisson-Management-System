@@ -219,7 +219,7 @@ public class Window extends JFrame {
 		prisonerAddInfoPanel.add(inputPanel, BorderLayout.CENTER);
 
 		// button to scheduel
-		scheduleButton = new JButton("C");
+		scheduleButton = new JButton("Visit Time");
 		scheduleButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -411,97 +411,6 @@ public class Window extends JFrame {
 	String scheduleFileName;
 
 	public void scheduleSetUp() {
-		schedulePage = new JPanel();
-		// Create file for schedule visit
-		DateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
-		date = new Date();
-		String scheduleFileName = currentDate.format(date).toString() + ".txt";
-
-		// Assume visit time is from 9:00am to 11:00am and 3:00am to 5:00am, each slot
-		// is 20 minutes long.
-		getVisitTime = new JButton("get visit time");
-		prisonerScheduleSelector = new JTextField();
-		prisonerScheduleSelector.setPreferredSize(new Dimension(200, 20));
-		schedulePage.add(prisonerScheduleSelector);
-
-		getVisitTime.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				if (minutecounter < 3) {
-					minutecounter += 1;
-				} else if (minutecounter == 3) {
-					minutecounter = 1;
-					reset = true;
-
-				}
-				if (reset == true) {
-
-					hourcounter += 1;
-					reset = false;
-				} else if (hourcounter == 4) {
-					minutecounter = 5;
-					hourcounter = 5;
-				}
-
-				vcounter = new VisitCounter();
-				hourval = vcounter.hourCounter(hourcounter);
-				minuteval = vcounter.minuteCounter(minutecounter);
-				System.out.println(hourval + minuteval);
-
-				scheduleString = "Prisoner Number: " + prisonerScheduleSelector.getText() + ", Visit Time Schedule at: " + hourval + ":" + minuteval;
-
-				writeSchedule(scheduleString,scheduleFileName);
-
-			}
-		});
-
-		schedulePage.add(getVisitTime);
-		add(schedulePage);
-
-	}
-
-	private void UpdateFrame() {
-
-		invalidate();
-		validate();
-		repaint();
-	}
-
-	public class prisonerFileSelection implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String origianlLines;
-			String fileName = prisonerCombo.getSelectedItem().toString() + ".txt";
-			File dir = new File(fileName);
-
-			if (dir.exists()) {
-				try {
-
-					FileReader fileReader = new FileReader(fileName);
-					BufferedReader br = new BufferedReader(fileReader);
-
-					historyDisplay.setText(null);
-					while ((origianlLines = br.readLine()) != null) {
-						historyDisplay.append(origianlLines + "\n");
-					}
-
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			} else if (!dir.exists()) {
-				System.out.println("No file found");
-			}
-
-		}
-
-		long minutecounter = 0;
-		long hourcounter = 1;
-		String scheduleString, hourval, minuteval;
-		String scheduleFileName;
-
-		public void scheduleSetUp() {
 			schedulePage = new JPanel();
 			// Create file for schedule visit
 			DateFormat currentDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -561,5 +470,47 @@ public class Window extends JFrame {
 			add(schedulePage);
 
 		}
+
+	private void UpdateFrame() {
+
+		invalidate();
+		validate();
+		repaint();
+	}
+
+	public class prisonerFileSelection implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String origianlLines;
+			String fileName = prisonerCombo.getSelectedItem().toString() + ".txt";
+			File dir = new File(fileName);
+
+			if (dir.exists()) {
+				try {
+
+					FileReader fileReader = new FileReader(fileName);
+					BufferedReader br = new BufferedReader(fileReader);
+
+					historyDisplay.setText(null);
+					while ((origianlLines = br.readLine()) != null) {
+						historyDisplay.append(origianlLines + "\n");
+					}
+
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			} else if (!dir.exists()) {
+				System.out.println("No file found");
+			}
+
+		}
+
+		long minutecounter = 0;
+		long hourcounter = 1;
+		String scheduleString, hourval, minuteval;
+		String scheduleFileName;
+
+		
 	}
 }
