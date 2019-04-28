@@ -37,6 +37,7 @@ public class AddPrisonerPopupWindow extends JFrame{
 	
 	
 	private void CreateLayout() {
+		
 		prisonerIDLbl = new JLabel("Prisoner ID:");
 		prisonerIDTxt = new  JTextField();
 		this.add(prisonerIDLbl);

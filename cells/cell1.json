@@ -1,1 +1,1 @@
-{"Prisoner_ID":1,"ocupied":false,"capacityUsed":0,"Security_Level":"Medium","Cell_Number":"1","block":"B","capacityTotal":0,"Time_Until_Next_Check":1,"Last_Check":"87"}
+{"Prisoner_ID":1,"capactiyUsed":0,"Security_Level":"Medium","Cell_Number":"1","block":"C","capacityTotal":0,"Time_Until_Next_Check":1,"Last_Check":"118","occupied":true}

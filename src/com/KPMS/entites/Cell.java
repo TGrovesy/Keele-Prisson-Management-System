@@ -52,10 +52,10 @@ public class Cell {
 		JSONObject obj = new JSONObject();
 		obj.put("Cell_Number", this.cellNumber);
 		obj.put("Security_Level", this.securityLevel);
-		obj.put("ocupied", this.occupied);
+		obj.put("occupied", this.occupied);
 		obj.put("block", this.block);
 		obj.put("capacityTotal", this.capacityTotal);
-		obj.put("capacityUsed", this.capactiyUsed);
+		obj.put("capactiyUsed", this.capactiyUsed);
 
 		obj.put("Prisoner_ID", this.prisonerID);
 
@@ -88,12 +88,12 @@ public class Cell {
 			this.securityLevel = (String) jsonObject.get("Security_Level");
 			this.occupied = (boolean) jsonObject.get("occupied");
 			this.block = (String) jsonObject.get("block");
-			this.capactiyUsed = (int) jsonObject.get("capactiyUsed");
-			this.capacityTotal = (int) jsonObject.get("capacityTotal");
+			this.capacityTotal = (int) Integer.parseInt(String.valueOf(jsonObject.get("capacityTotal")));
+			this.capactiyUsed = (int)Integer.parseInt(String.valueOf(jsonObject.get("capactiyUsed")));
 
-			this.prisonerID = (int) jsonObject.get("Prisoner_ID");
+			this.prisonerID = (int) Integer.parseInt(String.valueOf(jsonObject.get("Prisoner_ID")));
 			this.lastCheck = (String) jsonObject.get("Last_Check");
-			this.nextCheck = (int) jsonObject.get("Time_Until_Next_Check");
+			this.nextCheck = (int) Integer.parseInt(String.valueOf(jsonObject.get("Time_Until_Next_Check")));
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -102,6 +102,12 @@ public class Cell {
 		} catch (org.json.simple.parser.ParseException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void setPrisonerIDAndOccupy(int id) {
+		this.prisonerID = id;
+		this.occupied = true;
+		CreateJSONCellFile();
 	}
 
 }
