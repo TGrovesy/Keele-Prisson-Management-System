@@ -1,5 +1,6 @@
 package com.KPMS.UI;
 
+import static com.KPMS.entites.scheduleFile.writeSchedule;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -450,7 +451,7 @@ public class Window extends JFrame {
 
 				scheduleString = "Prisoner Number: " + prisonerScheduleSelector.getText() + ", Visit Time Schedule at: " + hourval + ":" + minuteval;
 
-				// writeSchedule("placeholder", scheduleFileName);
+				writeSchedule(scheduleString,scheduleFileName);
 
 			}
 		});
