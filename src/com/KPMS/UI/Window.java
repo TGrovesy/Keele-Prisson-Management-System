@@ -457,7 +457,7 @@ public class Window extends JFrame {
 					vcounter = new VisitCounter();
 					hourval = vcounter.hourCounter((int) outHour);
 					minuteval = vcounter.minuteCounter((int) outMinute);
-					System.out.println(hourval + ":" + minuteval);
+					prisonerScheduleDisplay.setText("The visit time for prisoner is at " + hourval +minuteval+"pm");
 				}
 			});
 
