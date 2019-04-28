@@ -471,13 +471,6 @@ public class Window extends JFrame {
 
 		}
 
-	private void UpdateFrame() {
-
-		invalidate();
-		validate();
-		repaint();
-	}
-
 	public class prisonerFileSelection implements ActionListener {
 
 		@Override
@@ -505,12 +498,14 @@ public class Window extends JFrame {
 			}
 
 		}
-
-		long minutecounter = 0;
-		long hourcounter = 1;
-		String scheduleString, hourval, minuteval;
-		String scheduleFileName;
-
 		
 	}
+	
+	private void UpdateFrame() {
+
+		invalidate();
+		validate();
+		repaint();
+	}
+
 }
